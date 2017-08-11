@@ -12,11 +12,12 @@ import javax.swing.JPanel;
  *
  */
 public class AppPanel extends JPanel {
-	Proyectil proyectil = new Proyectil(50, 700);
+	Proyectil proyectil = new Proyectil(50, 300);
 	
 	
 	public AppPanel(){
 		setBackground(Color.WHITE);
+		
 	}
 	
 	@Override
@@ -32,6 +33,7 @@ public class AppPanel extends JPanel {
 	
 	public void dibujar(Graphics2D g2d) {
 		g2d.fill(proyectil.getProyectil());
+	
 		
 	}
 	

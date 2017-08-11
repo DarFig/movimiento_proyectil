@@ -19,10 +19,19 @@ public class AppWindows extends JFrame{
 		setSize(this.WIDTH, this.HIGH);
 		setLocationRelativeTo(null);//ajustar al centro de la pantalla
 		setResizable(false);//no se puede modificar tamanyo
+		
+		//Panel
 		this.panel = new AppPanel();
 		add(panel);//anyadir el panel al frame
+		
+		//Hilo
 		this.thread = new PrincipalThread(this.panel);
 		this.thread.start();
 	}
+	public int getAncho(){
+		return WIDTH;
+		
+	}
+	
 	
 }
