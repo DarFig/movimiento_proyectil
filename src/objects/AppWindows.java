@@ -3,6 +3,8 @@ package objects;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,10 +24,13 @@ public class AppWindows extends JFrame{
 	private AppPanel panel;
 	private JPanel panelNorte;
 	private PrincipalThread thread;
+	private Proyectil miProyectil;
+	
+	private Container content;
 	
 	//campos y botones
-	private JTextField vix, viy, gravedad, ix, iy;
-	private JButton iniciar;
+	protected JTextField vix, viy, gravedad, ix, iy;
+	protected JButton iniciar;
 	
 	
 	//-----
@@ -35,7 +40,7 @@ public class AppWindows extends JFrame{
 		setLocationRelativeTo(null);//ajustar al centro de la pantalla
 		setResizable(false);//no se puede modificar tamanyo
 		
-		Container content = getContentPane();
+		content = getContentPane();
 		content.setLayout(new BorderLayout());
 		
 		//Paneles
@@ -45,9 +50,8 @@ public class AppWindows extends JFrame{
 		this.panel = new AppPanel();
 		content.add(panel, BorderLayout.CENTER);//anyadir el panel 
 		
-		//Hilo
-		this.thread = new PrincipalThread(this.panel);
-		this.thread.start();
+		
+		
 	}
 	public int getAncho(){
 		return WIDTH;
@@ -63,15 +67,52 @@ public class AppWindows extends JFrame{
 		pNor.add(new JLabel(" v0 en y: "));
 		this.viy = new JTextField(4);
 		pNor.add(this.viy);
+
+		pNor.add(new JLabel(" posición en x(0-1024): "));
+		this.ix = new JTextField(4);
+		pNor.add(this.ix);
+		
+		pNor.add(new JLabel(" posición en y(0-768): "));
+		this.iy = new JTextField(4);
+		pNor.add(this.iy);
 		
 		pNor.add(new JLabel(" v gravedad: "));
 		this.gravedad = new JTextField(4);
 		pNor.add(this.gravedad);
 		
 		this.iniciar = new JButton("start");
+		this.iniciar.addActionListener(new CapturaBoton());
 		pNor.add(this.iniciar);
 		
 		return pNor;
 	}
 	
+	public void run(){
+		
+		panel.setProyectil(this.miProyectil);
+		//Hilo
+		this.thread = new PrincipalThread(this.panel);
+		thread.start();
+	}
+	class CapturaBoton implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			float vx = Float.parseFloat(vix.getText());
+			float vy = Float.parseFloat(viy.getText());
+			int x = Integer.parseInt(ix.getText());
+			int y = invertirEje(Integer.parseInt(iy.getText()));
+			float g = Float.parseFloat(gravedad.getText());
+			miProyectil = new Proyectil(x, y, vx, vy, g);
+			
+			run();
+		}
+		private int invertirEje(int y){
+			return -1 * y + 768;
+		}
+
+	}
+	
+	
+
 }

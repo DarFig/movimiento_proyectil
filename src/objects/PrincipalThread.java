@@ -16,15 +16,19 @@ public class PrincipalThread extends Thread{
 	
 	@Override
 	public void run(){
-		while (true) {
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-
-				e.printStackTrace();
-			}
+		try {
+			Thread.sleep(500);
+		
+		while (!panel.impacto()) {
+		
+			Thread.sleep(10);
+			
 			this.panel.repaint();
 			
+		}
+		} catch (InterruptedException e1) {
+			
+			e1.printStackTrace();
 		}
 	}
 	
