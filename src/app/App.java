@@ -7,7 +7,7 @@ import objects.AppWindows;
 /**
  * 
  * @author Dariel
- *
+ * 
  */
 public class App {
 	public static void main(String[] args) {

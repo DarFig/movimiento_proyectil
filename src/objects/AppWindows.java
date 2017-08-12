@@ -9,10 +9,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
+
 /**
  * 
  * @author Dariel
@@ -98,14 +98,20 @@ public class AppWindows extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			float vx = Float.parseFloat(vix.getText());
-			float vy = Float.parseFloat(viy.getText());
-			int x = Integer.parseInt(ix.getText());
-			int y = invertirEje(Integer.parseInt(iy.getText()));
-			float g = Float.parseFloat(gravedad.getText());
-			miProyectil = new Proyectil(x, y, vx, vy, g);
+			try {
+				float vx = Float.parseFloat(vix.getText());
+				float vy = Float.parseFloat(viy.getText());
+				int x = Integer.parseInt(ix.getText());
+				int y = invertirEje(Integer.parseInt(iy.getText()));
+				float g = Float.parseFloat(gravedad.getText());
+				miProyectil = new Proyectil(x, y, vx, vy, g);
+				
+				run();
+			} catch (Exception e2) {
+				
+				JOptionPane.showMessageDialog(AppWindows.this, "Error en los campos de entrada");
+			}
 			
-			run();
 		}
 		private int invertirEje(int y){
 			return -1 * y + 768;

@@ -12,7 +12,7 @@ public class Proyectil {
 	private float vx, vy, g, tiempo; 
 	private boolean impacto;
 	
-	private final int incrementoX = 1, incrmentoY = 1;
+	
 	/*en este caso no hay cambio en el incremento, pero en caso de aceleraci'on estas variables no pueden ser final */
 	
 	private final int ALTO = 12, ANCHO = 12;
