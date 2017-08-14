@@ -8,7 +8,7 @@ import java.awt.geom.Ellipse2D;
  *
  */
 public class Proyectil {
-	private int x, y;
+	private float x, y;
 	private float vx, vy, g, tiempo; 
 	private boolean impacto;
 	
@@ -17,7 +17,7 @@ public class Proyectil {
 	
 	private final int ALTO = 12, ANCHO = 12;
 	
-	public Proyectil(int xPosition, int yPosition) {
+	public Proyectil(float xPosition, float yPosition) {
 		this.x = xPosition;
 		this.y = yPosition;
 		this.tiempo = 0;
@@ -27,7 +27,7 @@ public class Proyectil {
 		
 		this.impacto = false;
 	}
-	public Proyectil(int xPosition, int yPosition, float vix, float viy) {
+	public Proyectil(float xPosition, float yPosition, float vix, float viy) {
 		this.x = xPosition;
 		this.y = yPosition;
 		this.tiempo = 0;
@@ -37,7 +37,7 @@ public class Proyectil {
 		
 		this.impacto = false;
 	}
-	public Proyectil(int xPosition, int yPosition, float vix, float viy, float gravedad) {
+	public Proyectil(float xPosition, float yPosition, float vix, float viy, float gravedad) {
 		this.x = xPosition;
 		this.y = yPosition;
 		this.tiempo = 0;
@@ -60,10 +60,10 @@ public class Proyectil {
 		
 		//Actualizar posicion
 		if(this.y < 700) {
-			this.x += (int) (this.vx * tiempo);
+			this.x += (this.vx * tiempo);
 			
 			/* se decrementa la posicion en y porque el eje esta invertido al dibujar en pantalla*/
-			this.y = this.y - (int) (-0.5f * g *(tiempo * tiempo) + vy*tiempo);
+			this.y = this.y - (-0.5f * g *(tiempo * tiempo) + vy*tiempo);
 		}else{
 			this.impacto = true;
 		}

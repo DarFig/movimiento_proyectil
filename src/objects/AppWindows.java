@@ -123,8 +123,8 @@ public class AppWindows extends JFrame{
 			try {
 				float vx = Float.parseFloat(vix.getText());
 				float vy = Float.parseFloat(viy.getText());
-				int x = Integer.parseInt(ix.getText());
-				int y = invertirEje(Integer.parseInt(iy.getText()));
+				float x = Integer.parseInt(ix.getText());
+				float y = invertirEje(Integer.parseInt(iy.getText()));
 				float g = Float.parseFloat(gravedad.getText());
 				miProyectil = new Proyectil(x, y, vx, vy, g);
 				
