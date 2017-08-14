@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,10 +28,12 @@ public class AppWindows extends JFrame{
 	private Proyectil miProyectil;
 	
 	private Container content;
+	private final String[] listString = {"Tiro Parabólico", "...","..." };
 	
 	//campos y botones
 	protected JTextField vix, viy, gravedad, ix, iy;
 	protected JButton iniciar;
+	protected JComboBox listado;
 	
 	
 	//-----
@@ -84,6 +87,25 @@ public class AppWindows extends JFrame{
 		this.iniciar.addActionListener(new CapturaBoton());
 		pNor.add(this.iniciar);
 		
+		this.listado = new JComboBox(listString );
+		this.listado.addActionListener(new CapturaLista());
+		pNor.add(this.listado);
+		
+		
+		return pNor;
+	}
+	private JPanel crearPanelNorteLimpio(){
+		
+		JPanel pNor = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+		this.iniciar = new JButton("start");
+		this.iniciar.addActionListener(new CapturaBoton());
+		pNor.add(this.iniciar);
+		
+		this.listado = new JComboBox(listString );
+		this.listado.addActionListener(new CapturaLista());
+		pNor.add(this.listado);
+		
 		return pNor;
 	}
 	
@@ -116,6 +138,34 @@ public class AppWindows extends JFrame{
 		private int invertirEje(int y){
 			return -1 * y + 768;
 		}
+
+	}
+	class CapturaLista implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//System.out.println(listado.getSelectedItem());
+			if(listado.getSelectedItem().equals(listString[0])){
+				content.remove(panelNorte);
+				content.setVisible(false);
+				panelNorte = crearPanelNorte();
+				content.add(panelNorte, BorderLayout.NORTH);
+				content.setVisible(true);
+			
+			}else if (listado.getSelectedItem().equals(listString[1])) {
+				
+				content.remove(panelNorte);
+				content.setVisible(false);
+				panelNorte = crearPanelNorteLimpio();
+				content.add(panelNorte, BorderLayout.NORTH);
+				content.setVisible(true);
+				
+			}else{
+				
+			}
+			
+		}
+		
 
 	}
 	
