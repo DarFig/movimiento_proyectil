@@ -40,10 +40,12 @@ public class AppPanel extends JPanel {
 	public void update() {
 		proyectil.mover();
 	}
+	
 	public void setProyectil(Proyectil nProyectil){
 		this.proyectil = nProyectil;
 		repaint();
 	}
+	
 	public boolean impacto(){
 		return proyectil.impacto();
 	}

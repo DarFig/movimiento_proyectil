@@ -28,7 +28,7 @@ public class AppWindows extends JFrame{
 	private Proyectil miProyectil;
 	
 	private Container content;
-	private final String[] listString = {"Tiro Parabólico", "...","..." };
+	private final String[] listString = {"Movimiento Uniforme", "Tiro Parabólico", "..." };
 	
 	//campos y botones
 	protected JTextField vix, viy, gravedad, ix, iy;
@@ -38,6 +38,7 @@ public class AppWindows extends JFrame{
 	
 	//-----
 	public AppWindows() {
+		
 		setTitle("Simulador de Tiro");
 		setSize(this.WIDTH, this.HIGH);
 		setLocationRelativeTo(null);//ajustar al centro de la pantalla
@@ -47,20 +48,55 @@ public class AppWindows extends JFrame{
 		content.setLayout(new BorderLayout());
 		
 		//Paneles
-		this.panelNorte = crearPanelNorte();
+		this.panelNorte = crearPanelNorteUniforme();
 		content.add(panelNorte, BorderLayout.NORTH);
 		
 		this.panel = new AppPanel();
 		content.add(panel, BorderLayout.CENTER);//anyadir el panel 
-		
-		
-		
+					
 	}
+	
 	public int getAncho(){
-		return WIDTH;
+		
+		return WIDTH;	
 		
 	}
-	private JPanel crearPanelNorte() {
+	
+	private JPanel crearPanelNorteUniforme() {
+		
+		JPanel pNor = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		
+		pNor.add(new JLabel(" v0 en x: "));
+		this.vix = new JTextField(4);
+		pNor.add(this.vix);
+		
+		pNor.add(new JLabel(" v0 en y: "));
+		this.viy = new JTextField(4);
+		pNor.add(this.viy);
+
+		pNor.add(new JLabel(" posición en x(0-1024): "));
+		this.ix = new JTextField(4);
+		pNor.add(this.ix);
+		
+		pNor.add(new JLabel(" posición en y(0-768): "));
+		this.iy = new JTextField(4);
+		pNor.add(this.iy);
+		
+		
+		this.iniciar = new JButton("start");
+		this.iniciar.addActionListener(new CapturaBoton());
+		pNor.add(this.iniciar);
+		
+		this.listado = new JComboBox(listString );
+		this.listado.setSelectedItem(listString[0]);
+		this.listado.addActionListener(new CapturaLista());
+		pNor.add(this.listado);
+		
+		
+		return pNor;
+	}
+	private JPanel crearPanelNorteParabolico() {
+	
 		JPanel pNor = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		
 		pNor.add(new JLabel(" v0 en x: "));
@@ -88,6 +124,7 @@ public class AppWindows extends JFrame{
 		pNor.add(this.iniciar);
 		
 		this.listado = new JComboBox(listString );
+		this.listado.setSelectedItem(listString[1]);
 		this.listado.addActionListener(new CapturaLista());
 		pNor.add(this.listado);
 		
@@ -103,6 +140,7 @@ public class AppWindows extends JFrame{
 		pNor.add(this.iniciar);
 		
 		this.listado = new JComboBox(listString );
+		this.listado.setSelectedItem(listString[2]);
 		this.listado.addActionListener(new CapturaLista());
 		pNor.add(this.listado);
 		
@@ -116,19 +154,44 @@ public class AppWindows extends JFrame{
 		this.thread = new PrincipalThread(this.panel);
 		thread.start();
 	}
+	
 	class CapturaBoton implements ActionListener {
-
+		/*
+		 * Escucha el botón y lee los datos de acuerdo a las diferentes opciones
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
-				float vx = Float.parseFloat(vix.getText());
-				float vy = Float.parseFloat(viy.getText());
-				float x = Integer.parseInt(ix.getText());
-				float y = invertirEje(Integer.parseInt(iy.getText()));
-				float g = Float.parseFloat(gravedad.getText());
-				miProyectil = new Proyectil(x, y, vx, vy, g);
+				if(listado.getSelectedItem().equals(listString[0])){
+					
+					float vx = Float.parseFloat(vix.getText());
+					float vy = Float.parseFloat(viy.getText());
+					float x = Integer.parseInt(ix.getText());
+					float y = invertirEje(Integer.parseInt(iy.getText()));
+					
+					miProyectil = new Proyectil(x, y, vx, vy);
+					
+					run();
+					
+				}else if (listado.getSelectedItem().equals(listString[1])) {
+					
+					float vx = Float.parseFloat(vix.getText());
+					float vy = Float.parseFloat(viy.getText());
+					float x = Integer.parseInt(ix.getText());
+					float y = invertirEje(Integer.parseInt(iy.getText()));
+					float g = Float.parseFloat(gravedad.getText());
+					
+					miProyectil = new ProyectilParabolico(x, y, vx, vy, g);
+					
+					run();
+				}else{
+					miProyectil = new Proyectil(20, 200, 2, 0);
+					
+					run();
+				}
 				
-				run();
 			} catch (Exception e2) {
 				
 				JOptionPane.showMessageDialog(AppWindows.this, "Error en los campos de entrada");
@@ -141,14 +204,18 @@ public class AppWindows extends JFrame{
 
 	}
 	class CapturaLista implements ActionListener {
-
+		/*
+		 * Respecto a la opción seleccionada de la lista genera los diferentes paneles
+		 * que pueden ir en el panel norte
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//System.out.println(listado.getSelectedItem());
 			if(listado.getSelectedItem().equals(listString[0])){
 				content.remove(panelNorte);
 				content.setVisible(false);
-				panelNorte = crearPanelNorte();
+				panelNorte = crearPanelNorteUniforme();
 				content.add(panelNorte, BorderLayout.NORTH);
 				content.setVisible(true);
 			
@@ -156,12 +223,16 @@ public class AppWindows extends JFrame{
 				
 				content.remove(panelNorte);
 				content.setVisible(false);
-				panelNorte = crearPanelNorteLimpio();
+				panelNorte = crearPanelNorteParabolico();
 				content.add(panelNorte, BorderLayout.NORTH);
 				content.setVisible(true);
 				
 			}else{
-				
+				content.remove(panelNorte);
+				content.setVisible(false);
+				panelNorte = crearPanelNorteLimpio();
+				content.add(panelNorte, BorderLayout.NORTH);
+				content.setVisible(true);
 			}
 			
 		}
