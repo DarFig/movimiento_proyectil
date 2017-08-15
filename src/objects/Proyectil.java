@@ -5,17 +5,17 @@ import java.awt.geom.Ellipse2D;
 /**
  * 
  * @author Dariel
- *
+ * Clase base se mueve a velocidad constante, movimiento uniforme
  */
 public class Proyectil {
-	private float x, y;
-	private float vx, vy, g, tiempo; 
-	private boolean impacto;
+	protected float x, y;
+	protected float vx, vy, g, tiempo; 
+	protected boolean impacto;
 	
 	
-	/*en este caso no hay cambio en el incremento, pero en caso de aceleraci'on estas variables no pueden ser final */
 	
-	private final int ALTO = 12, ANCHO = 12;
+	
+	protected final int ALTO = 12, ANCHO = 12;
 	
 	public Proyectil(float xPosition, float yPosition) {
 		this.x = xPosition;
@@ -54,32 +54,25 @@ public class Proyectil {
 	}
 	
 	public void mover() {
-		//this.x += incrementoX;
-		//this.y -= incrmentoY;
+		
 		
 		
 		//Actualizar posicion
-		if(this.y < 700) {
-			this.x += (this.vx * tiempo);
-			
-			/* se decrementa la posicion en y porque el eje esta invertido al dibujar en pantalla*/
-			this.y = this.y - (-0.5f * g *(tiempo * tiempo) + vy*tiempo);
+		if(this.y < 700 && this.x < 1000) {
+			this.x += this.vx;
+			this.y -= this.vy;
 		}else{
 			this.impacto = true;
 		}
 		
 		//Actualizar velocidad y tiempo
 		this.tiempo += 0.01f;//los 10ms ddel thread 
-		this.velocidadParabolica();
 		
 	}
 	public boolean impacto(){
 		return impacto;
 	}
 	
-	private void velocidadParabolica() {
-		//implica una desaceleracion vertical
-		this.vy = this.vy - g * 0.01f; // 0.098m cada 10ms
-	}
+	
 	
 }
