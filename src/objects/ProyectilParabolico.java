@@ -22,7 +22,7 @@ public class ProyectilParabolico extends Proyectil{
 		//movimiento parabólico
 		
 		//Actualizar posicion
-		if(this.y < 700 ) {
+		if(this.y < 700 && this.x < 1030) {
 			this.x += (this.vx * tiempo);
 			
 			/* se decrementa la posicion en y porque el eje esta invertido al dibujar en pantalla*/
