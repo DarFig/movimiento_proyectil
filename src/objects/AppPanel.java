@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 /**
  * 
- * @author Dariel
+ * @author Dariel, DarFig
  *
  */
 public class AppPanel extends JPanel {

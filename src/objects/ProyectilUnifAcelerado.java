@@ -1,5 +1,11 @@
 package objects;
 
+
+/**
+ * 
+ * @author Dariel, DarFig
+ *
+ */
 public class ProyectilUnifAcelerado extends Proyectil{
 	private float ax, ay;
 	public ProyectilUnifAcelerado(float xPosition, float yPosition) {

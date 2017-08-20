@@ -8,7 +8,7 @@ import objects.AppWindows;
 
 /**
  * 
- * @author Dariel
+ * @author Dariel, DarFig
  * 
  */
 public class App {

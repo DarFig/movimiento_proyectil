@@ -3,7 +3,7 @@ package objects;
 
 /**
  * 
- * @author Dariel
+ * @author Dariel, DarFig
  *
  */
 public class PrincipalThread extends Thread{

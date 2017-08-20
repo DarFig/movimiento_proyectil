@@ -16,9 +16,10 @@ import javax.swing.JTextField;
 
 /**
  * 
- * @author Dariel
+ * @author Dariel, DarFig
  *
  */
+
 public class AppWindows extends JFrame{
 	//-----
 	private final int WIDTH = 1024, HIGH = 768;
@@ -39,7 +40,7 @@ public class AppWindows extends JFrame{
 	//-----
 	public AppWindows() {
 		
-		setTitle("Simulador de Tiro");
+		setTitle("Simulador de Movimientos");
 		setSize(this.WIDTH, this.HIGH);
 		setLocationRelativeTo(null);//ajustar al centro de la pantalla
 		setResizable(false);//no se puede modificar tamanyo

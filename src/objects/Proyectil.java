@@ -4,7 +4,7 @@ package objects;
 import java.awt.geom.Ellipse2D;
 /**
  * 
- * @author Dariel
+ * @author Dariel, DarFig
  * Clase base se mueve a velocidad constante, movimiento uniforme
  */
 public class Proyectil {

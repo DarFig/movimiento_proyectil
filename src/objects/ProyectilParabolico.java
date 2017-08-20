@@ -1,7 +1,7 @@
 package objects;
 /**
  * 
- * @author Dariel
+ * @author Dariel, DarFig
  * Describe un movimiento de tiro parabólico
  */
 public class ProyectilParabolico extends Proyectil{
